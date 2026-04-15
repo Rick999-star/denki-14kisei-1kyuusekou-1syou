@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<!-- saved from url=(0094)file:///C:/Users/shoht/Downloads/%E6%9A%97%E8%A8%98%E7%94%A8%E5%8D%98%E8%AA%9E%E5%B8%B3_1.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電気理論 単語帳</title>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+    startup: { typeset: false }
+  };
+</script>
+<script src="./index_files/tex-chtml.js.ダウンロード" id="MathJax-script" async=""></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #7dd3fc;
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .subtitle {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+
+  /* Progress */
+  .progress-bar-wrap {
+    width: 100%;
+    max-width: 540px;
+    background: #1e293b;
+    border-radius: 999px;
+    height: 6px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-size: 0.78rem;
+    color: #94a3b8;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  /* Card */
+  .card-container {
+    width: 100%;
+    max-width: 540px;
+    perspective: 1200px;
+    cursor: pointer;
+    margin-bottom: 24px;
+  }
+  .card-inner {
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-inner.flipped { transform: rotateY(180deg); }
+
+  .card-face {
+    width: 100%;
+    min-height: 220px;
+    border-radius: 18px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    position: relative;
+  }
+  .card-front {
+    background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+    border: 1px solid #2563eb44;
+    box-shadow: 0 8px 32px #0ea5e920;
+  }
+  .card-back {
+    background: linear-gradient(135deg, #1a3a2e 0%, #1e293b 100%);
+    border: 1px solid #10b98144;
+    box-shadow: 0 8px 32px #10b98120;
+    transform: rotateY(180deg);
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .card-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .badge-q { background: #1d4ed822; color: #7dd3fc; border: 1px solid #3b82f644; }
+  .badge-a { background: #05966922; color: #6ee7b7; border: 1px solid #10b98144; }
+
+  .card-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #e2e8f0;
+    word-break: break-word;
+  }
+  .card-back .card-text {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #a7f3d0;
+  }
+
+  .card-hint {
+    position: absolute;
+    bottom: 14px;
+    font-size: 0.72rem;
+    color: #475569;
+  }
+
+  /* Buttons */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 540px;
+    margin-bottom: 12px;
+  }
+  .btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0); }
+  .btn-prev { background: #1e293b; color: #94a3b8; border: 1px solid #334155; }
+  .btn-next { background: linear-gradient(135deg, #2563eb, #4f46e5); color: #fff; }
+  .btn-shuffle { background: #1e293b; color: #f59e0b; border: 1px solid #f59e0b44; }
+  .btn-reset  { background: #1e293b; color: #f87171; border: 1px solid #f8717144; }
+
+  .btn-row2 {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    max-width: 540px;
+    margin-bottom: 24px;
+  }
+
+  /* Filter */
+  .filter-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 540px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn.active {
+    background: #1d4ed8;
+    border-color: #3b82f6;
+    color: #fff;
+  }
+
+  /* Status */
+  .status-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 540px;
+    margin-bottom: 24px;
+  }
+  .status-card {
+    flex: 1;
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 10px 12px;
+    text-align: center;
+    border: 1px solid #334155;
+  }
+  .status-val { font-size: 1.3rem; font-weight: 700; }
+  .status-lbl { font-size: 0.68rem; color: #64748b; margin-top: 2px; }
+  .s-total   { color: #7dd3fc; }
+  .s-ok      { color: #6ee7b7; }
+  .s-ng      { color: #fca5a5; }
+  .s-pct     { color: #c4b5fd; }
+
+  /* Mark buttons */
+  .mark-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 540px;
+    margin-bottom: 20px;
+  }
+  .mark-btn {
+    flex: 1;
+    padding: 10px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mark-btn:hover { transform: translateY(-2px); }
+  .mark-ok { background: #064e3b; color: #6ee7b7; border: 1px solid #10b98166; }
+  .mark-ng { background: #450a0a; color: #fca5a5; border: 1px solid #ef444466; }
+  .mark-ok.selected { background: #065f46; box-shadow: 0 0 0 2px #10b981; }
+  .mark-ng.selected { background: #7f1d1d; box-shadow: 0 0 0 2px #ef4444; }
+
+  .card-number {
+    font-size: 0.75rem;
+    color: #475569;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+</style>
+<style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style></head>
+<body>
+
+<h1>⚡ 電気理論 単語帳</h1>
+<p class="subtitle">クリックでカードをめくる</p>
+
+<div class="status-row">
+  <div class="status-card"><div class="status-val s-total" id="s-total">83</div><div class="status-lbl">総問題数</div></div>
+  <div class="status-card"><div class="status-val s-ok" id="s-ok">0</div><div class="status-lbl">覚えた ✓</div></div>
+  <div class="status-card"><div class="status-val s-ng" id="s-ng">0</div><div class="status-lbl">要復習 ✗</div></div>
+  <div class="status-card"><div class="status-val s-pct" id="s-pct">0%</div><div class="status-lbl">正答率</div></div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-fill" id="prog" style="width:0%"></div>
+</div>
+<p class="progress-label" id="prog-label">0 / 83 完了</p>
+
+<div class="filter-row">
+  <button class="filter-btn active" onclick="setFilter(&#39;all&#39;)">すべて</button>
+  <button class="filter-btn" onclick="setFilter(&#39;ok&#39;)">覚えた ✓</button>
+  <button class="filter-btn" onclick="setFilter(&#39;ng&#39;)">要復習 ✗</button>
+  <button class="filter-btn" onclick="setFilter(&#39;unmarked&#39;)">未回答</button>
+</div>
+
+<p class="card-number" id="card-num">1 / 83（全体 1 / 83）</p>
+
+<div class="card-container" id="card-container" onclick="flipCard()">
+  <div class="card-inner" id="card-inner">
+    <div class="card-face card-front">
+      <span class="card-badge badge-q">Question</span>
+      <div class="card-text" id="card-q">電気量の本質を表す素量を何というか。</div>
+      <span class="card-hint">タップしてめくる</span>
+    </div>
+    <div class="card-face card-back">
+      <span class="card-badge badge-a">Answer</span>
+      <div class="card-text" id="card-a">電気量（電荷）</div>
+      <span class="card-hint">タップで戻す</span>
+    </div>
+  </div>
+</div>
+
+<div class="mark-row" id="mark-row">
+  <button class="mark-btn mark-ok" id="btn-ok" onclick="markCard(&#39;ok&#39;)">✓ 覚えた</button>
+  <button class="mark-btn mark-ng" id="btn-ng" onclick="markCard(&#39;ng&#39;)">✗ 要復習</button>
+</div>
+
+<div class="btn-row">
+  <button class="btn btn-prev" onclick="prevCard()">← 前へ</button>
+  <button class="btn btn-next" onclick="nextCard()">次へ →</button>
+</div>
+<div class="btn-row2">
+  <button class="btn btn-shuffle" onclick="shuffleCards()">🔀 シャッフル</button>
+  <button class="btn btn-reset" onclick="resetAll()">↺ リセット</button>
+</div>
+
+<script>
+const ALL_CARDS = [
+  {"q":"電気量の本質を表す素量を何というか。","a":"電気量（電荷）"},
+  {"q":"電気量（電荷）の単位記号は何か。","a":"$[C]$（クーロン）"},
+  {"q":"電流 $I$ 、電気量 $Q$ 、時間 $t$ の関係式を答えよ。","a":"$I = \\frac{Q}{t}$"},
+  {"q":"電位の差を何というか。","a":"電圧（電位差）"},
+  {"q":"電圧を作り出す力を何というか。","a":"起電力"},
+  {"q":"導体と絶縁体の中間にあり、熱や光の相互作用によって特異な性質をもつ物質の総称は何か。","a":"半導体"},
+  {"q":"電流の流れを妨げる働きを何というか。","a":"電気抵抗"},
+  {"q":"オームの法則における、電圧 $V$ 、抵抗 $R$ 、電流 $I$ の関係式を答えよ。","a":"$V = R I$"},
+  {"q":"電気抵抗の逆数 $\\frac{1}{R}$ を何というか。","a":"コンダクタンス"},
+  {"q":"コンダクタンスの単位記号は何か。","a":"$[S]$（ジーメンス）"},
+  {"q":"長さ $l [m]$ 、断面積 $S [m^2]$ 、抵抗率 $\\rho [\\Omega \\cdot m]$ の導体の電気抵抗 $R$ を求める式は何か。","a":"$R = \\rho \\times \\frac{l}{S}$"},
+  {"q":"抵抗率 $\\rho$ の逆数 $\\frac{1}{\\rho}$ を何というか。","a":"導電率（導電係数）"},
+  {"q":"絶縁体において、高電圧を加えた際にわずかに流れる電流を何というか。","a":"漏れ電流"},
+  {"q":"金属の温度が $1 ^{\\circ}C$ 上昇した時の抵抗変化の割合を何というか。","a":"抵抗の温度係数"},
+  {"q":"絶縁体や半導体において、温度が上昇した時の抵抗値の変化傾向はどうなるか。","a":"抵抗値が低くなる（負の温度係数）"},
+  {"q":"抵抗に電流が流れた際に熱が発生することを定義した法則は何か。","a":"ジュールの法則"},
+  {"q":"電流 $I [A]$ 、抵抗 $R [\\Omega]$ 、時間 $t [s]$ の時に発生する熱量 $Q [J]$ の式は何か。","a":"$Q = I^2 R t$"},
+  {"q":"電気が $1$ 秒間に消費するエネルギーの大きさを何というか。","a":"電力"},
+  {"q":"電力 $P$ 、電圧 $V$ 、電流 $I$ の関係式を答えよ。","a":"$P = V I$"},
+  {"q":"$1 [kW \\cdot h]$ は何 $[J]$ か。","a":"$3.6 \\times 10^6 [J]$（$3,600 [kJ]$）"},
+  {"q":"異なる $2$ 種類の金属を接続して閉回路を作り、接点に温度差を与えると熱起電力が発生する現象を何というか。","a":"ゼーベック効果"},
+  {"q":"$2$ 種類の金属を接合して電流を流したとき、接点で熱の吸収または発生が生じる現象を何というか。","a":"ペルチェ効果"},
+  {"q":"金属または半導体に電流を流し、電流に垂直に磁界を加えたとき、両者に垂直な方向に電界が発生する現象を何というか。","a":"ホール効果"},
+  {"q":"超伝導状態において、外部の磁界がその導体内部に侵入できなくなる現象を何というか。","a":"マイスナー効果"},
+  {"q":"磁極の強さを表す単位記号は何か。","a":"$[Wb]$（ウェーバ）"},
+  {"q":"真空の透磁率 $\\mu_0$ の値を答えよ。","a":"$4 \\pi \\times 10^{-7} [H/m]$"},
+  {"q":"媒質の透磁率 $\\mu$ と真空の透磁率 $\\mu_0$ の比（$\\frac{\\mu}{\\mu_0}$）を何というか。","a":"比透磁率"},
+  {"q":"比透磁率が $1$ より非常に大きい物質（鉄、ニッケルなど）を何というか。","a":"強磁性体"},
+  {"q":"磁界中のある点に正磁極 $1 [Wb]$ を置いたときに働く力の大きさを何というか。","a":"磁界の強さ"},
+  {"q":"磁界の強さ $H [A/m]$ の場所に磁極 $m [Wb]$ を置いたときに働く力 $F [N]$ の式を答えよ。","a":"$F = m H$"},
+  {"q":"単位面積あたりの磁束を何というか。","a":"磁束密度"},
+  {"q":"磁束密度 $B$ 、透磁率 $\\mu$ 、磁界の強さ $H$ の関係式を答えよ。","a":"$B = \\mu H$"},
+  {"q":"直線導体に電流を流したとき、右親指を電流の向きに向けると、他の $4$ 本の指の向きが磁界の向きとなる法則を何というか。","a":"右ネジの法則（アンペアの右ネジの法則）"},
+  {"q":"無限長直線導体に電流 $I [A]$ を流したとき、距離 $r [m]$ 離れた点の磁界の強さ $H [A/m]$ を求める式は何か。","a":"$H = \\frac{I}{2 \\pi r}$"},
+  {"q":"環状ソレノイド（平均半径 $r [m]$）に電流 $I [A]$ を流したとき、中心軸上の磁界の強さ $H [A/m]$ はいくらか（巻数を $N$ とする）。","a":"$H = \\frac{NI}{2 \\pi r}$"},
+  {"q":"磁界中で電流を流した導体に働く力の向きを定める法則は何か。","a":"フレミングの左手の法則"},
+  {"q":"フレミングの左手の法則において、中指は何の向きを表すか。","a":"電流の向き"},
+  {"q":"フレミングの左手の法則において、親指は何の向きを表すか。","a":"力の向き（電磁力の向き）"},
+  {"q":"磁束密度 $B [T]$ の磁界中で、長さ $l [m]$ の導体に電流 $I [A]$ を流したときに働く力 $F [N]$ の式は何か（磁界と電流は直交とする）。","a":"$F = B I l$"},
+  {"q":"平行な $2$ 本の導体に同方向の電流を流したとき、導体間に働く力は吸引力か反発力か。","a":"吸引力"},
+  {"q":"磁界中を移動する導体に発生する起電力の向きを定める法則は何か。","a":"フレミングの右手の法則"},
+  {"q":"フレミングの右手の法則において、人差し指は何の向きを表すか。","a":"磁界の向き"},
+  {"q":"磁束密度 $B [T]$ 中を、長さ $l [m]$ の導体が速度 $v [m/s]$ で移動するときに発生する誘導起電力 $e [V]$ の式は何か（すべて直交とする）。","a":"$e = B l v$"},
+  {"q":"コイルを貫く磁束が変化したとき、その変化を妨げる方向に誘導起電力が発生する法則を何というか。","a":"レンツの法則"},
+  {"q":"コイルの巻数を $N$ 、磁束の変化を $\\Delta \\phi$ 、時間変化を $\\Delta t$ とするときの誘導起電力 $e [V]$ を表すファラデーの法則の式は何か。","a":"$e = -N \\frac{\\Delta \\phi}{\\Delta t}$"},
+  {"q":"コイル自身の電流が変化することで、そのコイル自身に起電力が発生する現象を何というか。","a":"自己誘導作用"},
+  {"q":"自己インダクタンスの単位は何か。","a":"$[H]$（ヘンリー）"},
+  {"q":"相互インダクタンス $M$ 、結合係数 $k$ 、自己インダクタンス $L_1, L_2$ の関係式を答えよ。","a":"$M = k \\sqrt{L_1 L_2}$"},
+  {"q":"自己インダクタンス $L [H]$ に電流 $I [A]$ が流れているとき、蓄えられる電磁エネルギー $W [J]$ の式は何か。","a":"$W = \\frac{1}{2} L I^2$"},
+  {"q":"$2$ つの点電荷の間に働く静電力に関する法則を何というか。","a":"静電気に関するクーロンの法則"},
+  {"q":"電荷を蓄える目的で作られた素子を何というか。","a":"コンデンサ（キャパシタ）"},
+  {"q":"コンデンサに蓄えられる電荷 $Q [C]$ 、静電容量 $C [F]$ 、電圧 $V [V]$ の関係式を答えよ。","a":"$Q = C V$"},
+  {"q":"面積 $S [m^2]$ 、間隔 $d [m]$ 、誘電率 $\\epsilon [F/m]$ の平行平板電極の静電容量 $C [F]$ を求める式は何か。","a":"$C = \\epsilon \\frac{S}{d}$"},
+  {"q":"静電容量 $C_1, C_2, C_3$ のコンデンサを並列接続したときの合成静電容量 $C_0$ はいくらか。","a":"$C_0 = C_1 + C_2 + C_3$"},
+  {"q":"静電容量 $C [F]$ のコンデンサに電圧 $V [V]$ が加わっているとき、蓄えられる静電エネルギー $W [J]$ の式を答えよ。","a":"$W = \\frac{1}{2} C V^2$"},
+  {"q":"交流において $1$ 秒間に繰り返されるサイクルの数を何というか。","a":"周波数"},
+  {"q":"周波数 $f$ と周期 $T$ の関係式を答えよ。","a":"$f = \\frac{1}{T}$"},
+  {"q":"角周波数 $\\omega [rad/s]$ を周波数 $f [Hz]$ を用いて表せ。","a":"$\\omega = 2 \\pi f$"},
+  {"q":"正弦波交流の最大値を $V_m$ とするとき、実効値 $V$ はいくらか。","a":"$V = \\frac{V_m}{\\sqrt{2}} \\approx 0.707 V_m$"},
+  {"q":"正弦波交流の最大値を $V_m$ とするとき、平均値 $V_a$ はいくらか。","a":"$V_a = \\frac{2 V_m}{\\pi} \\approx 0.637 V_m$"},
+  {"q":"誘導性リアクタンス $X_L [\\Omega]$ を角周波数 $\\omega$ と自己インダクタンス $L$ で表せ。","a":"$X_L = \\omega L$"},
+  {"q":"容量性リアクタンス $X_C [\\Omega]$ を角周波数 $\\omega$ と静電容量 $C$ で表せ。","a":"$X_C = \\frac{1}{\\omega C}$"},
+  {"q":"抵抗 $R$ 、インダクタンス $L$ の直列回路において、インピーダンスの大きさ $Z$ はいくらか。","a":"$Z = \\sqrt{R^2 + (\\omega L)^2}$"},
+  {"q":"交流回路において、実際に消費される電力を何というか。","a":"有効電力"},
+  {"q":"交流回路において、電源と負荷の間を行き来するだけで消費されない電力を何というか。","a":"無効電力"},
+  {"q":"交流回路の有効電力 $P [W]$ を、電圧 $V$ 、電流 $I$ 、位相差 $\\theta$ を用いて表せ。","a":"$P = V I \\cos \\theta$"},
+  {"q":"交流回路の無効電力 $Q [var]$ を、電圧 $V$ 、電流 $I$ 、位相差 $\\theta$ を用いて表せ。","a":"$Q = V I \\sin \\theta$"},
+  {"q":"電圧 $V$ と電流 $I$ の単純な積で表される電力を何というか。","a":"皮相電力"},
+  {"q":"皮相電力 $S$ に対する有効電力 $P$ の比（$\\frac{P}{S}$）を何というか。","a":"力率（$\\cos \\theta$）"},
+  {"q":"三相交流において、各相の位相は何 $[rad]$ ずつずれているか。","a":"$\\frac{2}{3} \\pi [rad]$（$120^{\\circ}$）"},
+  {"q":"三相交流の $Y$ 結線において、線間電圧 $V_l$ と相電圧 $V_p$ の関係を答えよ。","a":"$V_l = \\sqrt{3} V_p$"},
+  {"q":"三相交流の $\\Delta$ 結線において、線電流 $I_l$ と相電流 $I_p$ の関係を答えよ。","a":"$I_l = \\sqrt{3} I_p$"},
+  {"q":"三相交流の全有効電力 $P$ を、線間電圧 $V$ 、線電流 $I$ 、力率 $\\cos \\theta$ で表せ。","a":"$P = \\sqrt{3} V I \\cos \\theta$"},
+  {"q":"制御量を目標値と比較し、それらを一致させるように修正動作を自動的に行う制御を何というか。","a":"フィードバック制御（閉ループ制御）"},
+  {"q":"あらかじめ定められた順序または手続に従って、制御の各段階を逐次進めていく制御を何というか。","a":"シーケンス制御"},
+  {"q":"シーケンス制御の基本回路において、$2$ つの入力がともになされた時だけ出力が出る回路は何か。","a":"AND回路（論理積回路）"},
+  {"q":"シーケンス制御において、入力がなされた時に出力が消え、入力がない時に出力が出る回路は何か。","a":"NOT回路（論理否定回路）"},
+  {"q":"押しボタンを離した後も、リレー自身の接点によって動作状態を保持する回路を何というか。","a":"自己保持回路"},
+  {"q":"安全のため、同時に動作しては困る $2$ つの回路が互いに相手の動作を禁止する回路を何というか。","a":"インターロック回路"},
+  {"q":"誘導電動機の回転磁界の速度 $N_s$ を、極数 $p$ と周波数 $f$ で表せ。","a":"$N_s = \\frac{120 f}{p}$"},
+  {"q":"誘導電動機において、同期速度 $N_s$ と実際の回転速度 $N$ の差の割合を何というか。","a":"すべり（$s$）"},
+  {"q":"変圧器の一次巻数 $N_1$ 、二次巻数 $N_2$ の比 $\\frac{N_1}{N_2}$ を何というか。","a":"巻数比（変圧比）$a$"},
+  {"q":"三相誘導電動機の速度制御法のうち、インバータを用いて電圧と周波数を変化させる方式は何か。","a":"VVVF制御（周波数変換制御）"}
+];
+
+let cards = [...ALL_CARDS];
+let idx = 0;
+let status = new Array(ALL_CARDS.length).fill(null); // null / 'ok' / 'ng'
+let filter = 'all';
+let filteredIndices = cards.map((_, i) => i);
+let filteredPos = 0;
+
+function getFiltered() {
+  if (filter === 'all') return cards.map((_, i) => i);
+  if (filter === 'ok')  return cards.map((_, i) => i).filter(i => status[i] === 'ok');
+  if (filter === 'ng')  return cards.map((_, i) => i).filter(i => status[i] === 'ng');
+  if (filter === 'unmarked') return cards.map((_, i) => i).filter(i => status[i] === null);
+  return cards.map((_, i) => i);
+}
+
+function setFilter(f) {
+  filter = f;
+  document.querySelectorAll('.filter-btn').forEach((b, i) => {
+    b.classList.toggle('active', ['all','ok','ng','unmarked'][i] === f);
+  });
+  filteredIndices = getFiltered();
+  filteredPos = 0;
+  if (filteredIndices.length > 0) {
+    idx = filteredIndices[0];
+    renderCard();
+  }
+  updateStats();
+}
+
+function renderCard() {
+  const card = cards[idx];
+  document.getElementById('card-q').innerHTML = card.q;
+  document.getElementById('card-a').innerHTML = card.a;
+  document.getElementById('card-inner').classList.remove('flipped');
+
+  const pos = filteredIndices.indexOf(idx);
+  document.getElementById('card-num').textContent =
+    `${pos + 1} / ${filteredIndices.length}（全体 ${idx + 1} / ${cards.length}）`;
+
+  // Mark buttons
+  document.getElementById('btn-ok').classList.toggle('selected', status[idx] === 'ok');
+  document.getElementById('btn-ng').classList.toggle('selected', status[idx] === 'ng');
+
+  // MathJax re-render
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    MathJax.typesetClear([
+      document.getElementById('card-q'),
+      document.getElementById('card-a')
+    ]);
+    MathJax.typesetPromise([
+      document.getElementById('card-q'),
+      document.getElementById('card-a')
+    ]).catch(err => console.log(err));
+  }
+  updateProgress();
+}
+
+function flipCard() {
+  document.getElementById('card-inner').classList.toggle('flipped');
+}
+
+function nextCard() {
+  filteredIndices = getFiltered();
+  if (filteredIndices.length === 0) return;
+  filteredPos = filteredIndices.indexOf(idx);
+  filteredPos = (filteredPos + 1) % filteredIndices.length;
+  idx = filteredIndices[filteredPos];
+  renderCard();
+}
+
+function prevCard() {
+  filteredIndices = getFiltered();
+  if (filteredIndices.length === 0) return;
+  filteredPos = filteredIndices.indexOf(idx);
+  filteredPos = (filteredPos - 1 + filteredIndices.length) % filteredIndices.length;
+  idx = filteredIndices[filteredPos];
+  renderCard();
+}
+
+function markCard(type) {
+  status[idx] = (status[idx] === type) ? null : type;
+  document.getElementById('btn-ok').classList.toggle('selected', status[idx] === 'ok');
+  document.getElementById('btn-ng').classList.toggle('selected', status[idx] === 'ng');
+  updateStats();
+  updateProgress();
+}
+
+function shuffleCards() {
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+    [status[i], status[j]] = [status[j], status[i]];
+  }
+  filteredIndices = getFiltered();
+  filteredPos = 0;
+  if (filteredIndices.length > 0) idx = filteredIndices[0];
+  renderCard();
+  updateStats();
+}
+
+function resetAll() {
+  if (!confirm('すべてのマークをリセットしますか？')) return;
+  cards = [...ALL_CARDS];
+  status = new Array(ALL_CARDS.length).fill(null);
+  filter = 'all';
+  document.querySelectorAll('.filter-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+  filteredIndices = cards.map((_, i) => i);
+  filteredPos = 0;
+  idx = 0;
+  renderCard();
+  updateStats();
+}
+
+function updateStats() {
+  const ok = status.filter(s => s === 'ok').length;
+  const ng = status.filter(s => s === 'ng').length;
+  const answered = ok + ng;
+  const pct = answered > 0 ? Math.round(ok / answered * 100) : 0;
+  document.getElementById('s-total').textContent = cards.length;
+  document.getElementById('s-ok').textContent = ok;
+  document.getElementById('s-ng').textContent = ng;
+  document.getElementById('s-pct').textContent = pct + '%';
+}
+
+function updateProgress() {
+  const answered = status.filter(s => s !== null).length;
+  const pct = Math.round(answered / cards.length * 100);
+  document.getElementById('prog').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `${answered} / ${cards.length} 完了`;
+}
+
+// Init - wait for MathJax to be ready before first render
+function init() {
+  renderCard();
+  updateStats();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
+</script>
+
+
+</body></html>
